@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <script type="text/javascript" src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js"></script>
+        <!-- unity3d下载 -->
+        <script type='text/javascript' src='http://cdn.bootcss.com/jquery/1.7.2/jquery.min.js'></script>
+        <!-- jquery -->
+        <base href="http://fenglee.com/game/aog/">
+        <!-- 解决跳转问题 -->
+        <link rel="stylesheet" href="http://7xqntg.com1.z0.glb.clouddn.com/style.css" media="screen" type="text/css" />
+        <!-- 加载样式 -->
+        <title>AOTTG-web</title>
+        <script type="text/javascript">
+        var unityObjectUrl = "UnityObject2.js";
+        if (document.location.protocol == 'https:')
+            unityObjectUrl = unityObjectUrl.replace("http://", "https://ssl-");
+        document.write('<script type="text\/javascript" src="' + unityObjectUrl + '"><\/script>');
+        </script>
+        <script type="text/javascript">
+        var config = {
+            width: 960,
+            height: 600,
+            params: {
+                enableDebugging: "0"
+            }
+        };
+        config.params["disableContextMenu"] = true;
+        var u = new UnityObject2(config);
+
+        jQuery(function () {
+
+            var $missingScreen = jQuery("#unityPlayer").find(".missing");
+            var $brokenScreen = jQuery("#unityPlayer").find(".broken");
+            $missingScreen.hide();
+            $brokenScreen.hide();
+
+            u.observeProgress(function (progress) {
+                switch (progress.pluginStatus) {
+                case "broken":
+                    $brokenScreen.find("a").click(function (e) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        u.installPlugin();
+                        return false;
+                    });
+                    $brokenScreen.show();
+                    break;
+                case "missing":
+                    $missingScreen.find("a").click(function (e) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        u.installPlugin();
+                        return false;
+                    });
+                    $missingScreen.show();
+                    break;
+                case "installed":
+                    $missingScreen.remove();
+                    break;
+                case "first":
+                    break;
+                }
+            });
+            u.initPlugin(jQuery("#unityPlayer")[0], "aog1.unity3d");
+        });
+        </script>
+        <style type="text/css">
+        div.content {
+            margin: auto;
+            width: 960px;
+        }
+        div#unityPlayer {
+            cursor: default;
+            height: 600px;
+            width: 960px;
+        }
+        </style>
+    </head>
+    
+    <body>
+        <div class='card-holder'>
+            <div class='card-wrapper'>
+                <a target="_blank" href='http://weibo.com/indiegamedeveloper'>
+                    <div class='card bg-02'>
+                        <img src="http://7xqntg.com1.z0.glb.clouddn.com/1.png">
+                    </div>
+                </a>
+            </div>
+            <div class='card-wrapper'>
+                <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=122d23225504bb4f452120a9dc1db8db578fac6fee5656be33554d353c2fa608">
+                    <div class='card bg-03'>
+                        <img src="http://7xqntg.com1.z0.glb.clouddn.com/2.png">
+                    </div>
+                </a>
+            </div>
+            <div class='card-wrapper'>
+                <a target="_blank" href='getSnapShot.php'>
+                    <div class='card bg-04'>
+                        <img src="http://7xqntg.com1.z0.glb.clouddn.com/3.png">
+                    </div>
+                </a>
+            </div>
+            <div class='card-wrapper'>
+                <a target="_blank" href='http://tieba.baidu.com/home/main?id=789e707973303738852c'>
+                    <div class='card bg-05'>
+                        <img src="http://7xqntg.com1.z0.glb.clouddn.com/4.png">
+                    </div>
+                </a>
+            </div>
+        </div>
+        <center>
+            <img src="http://7xqntg.com1.z0.glb.clouddn.com/Game.png">
+        </center>
+        <div class="whole">
+            <img src="http://7xqntg.com1.z0.glb.clouddn.com/back.jpg" />
+        </div>
+        <div class="game">
+            <div class="content">
+                <div id="unityPlayer">
+                    <div class="missing">
+                        <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+                            <img alt="下载了我就能玩了！" src="http://pys078.xyz/getunity.png" width="193" height="63" />
+                        </a>
+                    </div>
+                    <div class="broken">
+                        <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now! Restart your browser after install.">
+                            <img alt="重新再下载一个试一试！" src="http://pys078.xyz/getunityrestart.png" width="193" height="63" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chat">
+            <iframe src='http://play.pys078.xyz/chat/index.php' style="height:250px;width:200px;" scrolling="no"></iframe>
+        </div>
+    </body>
+
+</html>
